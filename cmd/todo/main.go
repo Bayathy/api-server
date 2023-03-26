@@ -7,7 +7,7 @@ import (
 
 	todo "github.com/bayathy/go-api-server"
 	"github.com/bayathy/go-api-server/ent"
-	"github.com/bayathy/go-api-server/migrate"
+	"github.com/bayathy/go-api-server/ent/migrate"
 
 	"entgo.io/ent/dialect"
 	"github.com/99designs/gqlgen/graphql/handler"
