@@ -3,7 +3,6 @@
 package ent
 
 import (
-	"Reading_App_Back/ent/todo"
 	"context"
 	"errors"
 	"fmt"
@@ -12,6 +11,7 @@ import (
 	"entgo.io/ent"
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
+	"github.com/bayathy/go-api-server/ent/todo"
 )
 
 // ent aliases to avoid import conflicts in user's code.

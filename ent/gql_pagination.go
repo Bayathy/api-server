@@ -3,7 +3,6 @@
 package ent
 
 import (
-	"Reading_App_Back/ent/todo"
 	"context"
 	"encoding/base64"
 	"errors"
@@ -15,6 +14,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"github.com/99designs/gqlgen/graphql"
 	"github.com/99designs/gqlgen/graphql/errcode"
+	"github.com/bayathy/go-api-server/ent/todo"
 	"github.com/vektah/gqlparser/v2/gqlerror"
 	"github.com/vmihailenco/msgpack/v5"
 )

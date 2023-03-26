@@ -3,7 +3,6 @@
 package ent
 
 import (
-	"Reading_App_Back/ent/todo"
 	"context"
 	"fmt"
 	"sync"
@@ -14,6 +13,7 @@ import (
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/schema"
 	"github.com/99designs/gqlgen/graphql"
+	"github.com/bayathy/go-api-server/ent/todo"
 	"github.com/hashicorp/go-multierror"
 	"golang.org/x/sync/semaphore"
 )

@@ -3,9 +3,10 @@
 package hook
 
 import (
-	"Reading_App_Back/ent"
 	"context"
 	"fmt"
+
+	"github.com/bayathy/go-api-server/ent"
 )
 
 // The TodoFunc type is an adapter to allow the use of ordinary

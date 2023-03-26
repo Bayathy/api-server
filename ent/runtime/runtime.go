@@ -2,7 +2,7 @@
 
 package runtime
 
-// The schema-stitching logic is generated in Reading_App_Back/ent/runtime.go
+// The schema-stitching logic is generated in github.com/bayathy/go-api-server/ent/runtime.go
 
 const (
 	Version = "v0.11.10"                                        // Version of ent codegen.

@@ -3,14 +3,14 @@
 package enttest
 
 import (
-	"Reading_App_Back/ent"
 	"context"
-	// required by schema hooks.
-	_ "Reading_App_Back/ent/runtime"
 
-	"Reading_App_Back/ent/migrate"
+	"github.com/bayathy/go-api-server/ent"
+	// required by schema hooks.
+	_ "github.com/bayathy/go-api-server/ent/runtime"
 
 	"entgo.io/ent/dialect/sql/schema"
+	"github.com/bayathy/go-api-server/ent/migrate"
 )
 
 type (

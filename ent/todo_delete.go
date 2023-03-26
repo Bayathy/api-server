@@ -3,13 +3,13 @@
 package ent
 
 import (
-	"Reading_App_Back/ent/predicate"
-	"Reading_App_Back/ent/todo"
 	"context"
 
 	"entgo.io/ent/dialect/sql"
 	"entgo.io/ent/dialect/sql/sqlgraph"
 	"entgo.io/ent/schema/field"
+	"github.com/bayathy/go-api-server/ent/predicate"
+	"github.com/bayathy/go-api-server/ent/todo"
 )
 
 // TodoDelete is the builder for deleting a Todo entity.
