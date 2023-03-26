@@ -19,7 +19,7 @@ func (r *queryResolver) Nodes(ctx context.Context, ids []int) ([]ent.Noder, erro
 }
 
 func (r *queryResolver) Todos(ctx context.Context) ([]*ent.Todo, error) {
-	panic(fmt.Errorf("not implemented"))
+	return r.client.Todo.Query().All(ctx)
 }
 
 // Query returns QueryResolver implementation.

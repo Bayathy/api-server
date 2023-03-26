@@ -10,7 +10,7 @@ type Resolver struct{ client *ent.Client }
 
 // NewSchema creates a graphql executable schema.
 func NewSchema(client *ent.Client) graphql.ExecutableSchema {
-    return NewExecutableSchema(Config{
-        Resolvers: &Resolver{client},
-    })
+	return NewExecutableSchema(Config{
+		Resolvers: &Resolver{client},
+	})
 }
