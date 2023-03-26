@@ -3,12 +3,16 @@ services:
   server:
     container_name: server
     image: golang:1.20.2-alpine3.17
+    build: 
+      context: .
+      dockerfile: ./Dockerfile
     volumes:
       - ./:/app
+      - packages:/go
     depends_on:
       - db
     ports:
-      - 7000
+      - 8080:8080
     tty: true
     working_dir: /app
 
@@ -16,7 +20,6 @@ services:
     image: postgres:14.4
     container_name: db
     environment:
-      environment:
       TZ: Asia/Tokyo
       POSTGRES_USER: root
       POSTGRES_PASSWORD: root
@@ -24,3 +27,6 @@ services:
     restart: always
     hostname: db
     user: root
+
+volumes:
+  packages:
