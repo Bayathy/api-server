@@ -10,3 +10,11 @@ func ConvertUser(e *entity.User) *model.User {
 		UUID: e.Uuid,
 	}
 }
+
+func ConvertArticle(e *entity.Article) *model.Article {
+	return &model.Article{
+		Title: e.Title,
+		URL:   e.Url,
+		Done:  e.Done,
+	}
+}
