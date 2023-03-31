@@ -1,9 +1,9 @@
-input CreateArticleInput {
+input NewArticle {
     title : String!
     url: String!
     uuid: String!
 }
 
-input CreateUserInput {
+input NewUser {
     uuid: String!
 }
