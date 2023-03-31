@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/bayathy/api-server/graph"
 	"github.com/bayathy/api-server/graph/model"
 )
 
@@ -21,7 +22,7 @@ func (r *mutationResolver) CreateUser(ctx context.Context, input *model.NewUser)
 	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
 }
 
-// Mutation returns MutationResolver implementation.
-func (r *Resolver) Mutation() MutationResolver { return &mutationResolver{r} }
+// Mutation returns graph.MutationResolver implementation.
+func (r *Resolver) Mutation() graph.MutationResolver { return &mutationResolver{r} }
 
 type mutationResolver struct{ *Resolver }

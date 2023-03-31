@@ -8,6 +8,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/bayathy/api-server/graph"
 	"github.com/bayathy/api-server/graph/model"
 )
 
@@ -21,7 +22,7 @@ func (r *queryResolver) Article(ctx context.Context, input model.ArticleInput) (
 	panic(fmt.Errorf("not implemented: Article - article"))
 }
 
-// Query returns QueryResolver implementation.
-func (r *Resolver) Query() QueryResolver { return &queryResolver{r} }
+// Query returns graph.QueryResolver implementation.
+func (r *Resolver) Query() graph.QueryResolver { return &queryResolver{r} }
 
 type queryResolver struct{ *Resolver }
