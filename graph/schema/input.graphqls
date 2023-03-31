@@ -1,0 +1,9 @@
+input CreateArticleInput {
+    title : String!
+    url: String!
+    uuid: String!
+}
+
+input CreateUserInput {
+    uuid: String!
+}

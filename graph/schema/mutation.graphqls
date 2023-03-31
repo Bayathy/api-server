@@ -1,0 +1,7 @@
+# GraphQL schema example
+#
+# https://gqlgen.com/getting-started/
+type Mutation {
+  createArticle(input: CreateArticleInput): Article
+  createUser(input: CreateUserInput): User
+}

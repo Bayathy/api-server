@@ -1,0 +1,4 @@
+type Query {
+    articles: [Article!]!
+    article(input: CreateArticleInput!): Article!
+}

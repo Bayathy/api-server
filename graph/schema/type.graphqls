@@ -1,0 +1,12 @@
+type Article {
+    id: ID!
+    title: String!
+    url: String!
+    done: Boolean!
+    user: User
+}
+
+type User {
+    id: Int!
+    uuid: String!
+}

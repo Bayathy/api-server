@@ -1,6 +1,7 @@
 package main
 
 import (
+	"github.com/bayathy/api-server/cmd/db"
 	"log"
 	"net/http"
 	"os"
@@ -13,12 +14,16 @@ import (
 const defaultPort = "8080"
 
 func main() {
+	database, err := db.ConnectDatabase()
+	if err != nil {
+		panic(err)
+	}
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = defaultPort
 	}
 
-	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
+	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{DB: database}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)
