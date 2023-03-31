@@ -17,7 +17,7 @@ func (r *queryResolver) Articles(ctx context.Context) ([]*model.Article, error) 
 }
 
 // Article is the resolver for the article field.
-func (r *queryResolver) Article(ctx context.Context, input model.CreateArticleInput) (*model.Article, error) {
+func (r *queryResolver) Article(ctx context.Context, input model.ArticleInput) (*model.Article, error) {
 	panic(fmt.Errorf("not implemented: Article - article"))
 }
 

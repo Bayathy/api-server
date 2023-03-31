@@ -12,12 +12,12 @@ import (
 )
 
 // CreateArticle is the resolver for the createArticle field.
-func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.CreateArticleInput) (*model.Article, error) {
+func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error) {
 	panic(fmt.Errorf("not implemented: CreateArticle - createArticle"))
 }
 
 // CreateUser is the resolver for the createUser field.
-func (r *mutationResolver) CreateUser(ctx context.Context, input *model.CreateUserInput) (*model.User, error) {
+func (r *mutationResolver) CreateUser(ctx context.Context, input *model.NewUser) (*model.User, error) {
 	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
 }
 

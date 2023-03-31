@@ -1,3 +1,7 @@
+input ArticleInput {
+    uuId : String!
+}
+
 input NewArticle {
     title : String!
     url: String!

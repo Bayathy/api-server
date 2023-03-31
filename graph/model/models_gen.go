@@ -10,13 +10,17 @@ type Article struct {
 	User  *User  `json:"user,omitempty"`
 }
 
-type CreateArticleInput struct {
+type ArticleInput struct {
+	UuID string `json:"uuId"`
+}
+
+type NewArticle struct {
 	Title string `json:"title"`
 	URL   string `json:"url"`
 	UUID  string `json:"uuid"`
 }
 
-type CreateUserInput struct {
+type NewUser struct {
 	UUID string `json:"uuid"`
 }
 

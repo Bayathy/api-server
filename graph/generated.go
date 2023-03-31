@@ -54,12 +54,12 @@ type ComplexityRoot struct {
 	}
 
 	Mutation struct {
-		CreateArticle func(childComplexity int, input *model.CreateArticleInput) int
-		CreateUser    func(childComplexity int, input *model.CreateUserInput) int
+		CreateArticle func(childComplexity int, input *model.NewArticle) int
+		CreateUser    func(childComplexity int, input *model.NewUser) int
 	}
 
 	Query struct {
-		Article  func(childComplexity int, input model.CreateArticleInput) int
+		Article  func(childComplexity int, input model.ArticleInput) int
 		Articles func(childComplexity int) int
 	}
 
@@ -70,12 +70,12 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreateArticle(ctx context.Context, input *model.CreateArticleInput) (*model.Article, error)
-	CreateUser(ctx context.Context, input *model.CreateUserInput) (*model.User, error)
+	CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error)
+	CreateUser(ctx context.Context, input *model.NewUser) (*model.User, error)
 }
 type QueryResolver interface {
 	Articles(ctx context.Context) ([]*model.Article, error)
-	Article(ctx context.Context, input model.CreateArticleInput) (*model.Article, error)
+	Article(ctx context.Context, input model.ArticleInput) (*model.Article, error)
 }
 
 type executableSchema struct {
@@ -138,7 +138,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateArticle(childComplexity, args["input"].(*model.CreateArticleInput)), true
+		return e.complexity.Mutation.CreateArticle(childComplexity, args["input"].(*model.NewArticle)), true
 
 	case "Mutation.createUser":
 		if e.complexity.Mutation.CreateUser == nil {
@@ -150,7 +150,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateUser(childComplexity, args["input"].(*model.CreateUserInput)), true
+		return e.complexity.Mutation.CreateUser(childComplexity, args["input"].(*model.NewUser)), true
 
 	case "Query.article":
 		if e.complexity.Query.Article == nil {
@@ -162,7 +162,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Query.Article(childComplexity, args["input"].(model.CreateArticleInput)), true
+		return e.complexity.Query.Article(childComplexity, args["input"].(model.ArticleInput)), true
 
 	case "Query.articles":
 		if e.complexity.Query.Articles == nil {
@@ -193,8 +193,9 @@ func (e *executableSchema) Exec(ctx context.Context) graphql.ResponseHandler {
 	rc := graphql.GetOperationContext(ctx)
 	ec := executionContext{rc, e}
 	inputUnmarshalMap := graphql.BuildUnmarshalerMap(
-		ec.unmarshalInputCreateArticleInput,
-		ec.unmarshalInputCreateUserInput,
+		ec.unmarshalInputArticleInput,
+		ec.unmarshalInputNewArticle,
+		ec.unmarshalInputNewUser,
 	)
 	first := true
 
@@ -280,10 +281,10 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_createArticle_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CreateArticleInput
+	var arg0 *model.NewArticle
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalOCreateArticleInput2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐCreateArticleInput(ctx, tmp)
+		arg0, err = ec.unmarshalONewArticle2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐNewArticle(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -295,10 +296,10 @@ func (ec *executionContext) field_Mutation_createArticle_args(ctx context.Contex
 func (ec *executionContext) field_Mutation_createUser_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 *model.CreateUserInput
+	var arg0 *model.NewUser
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalOCreateUserInput2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐCreateUserInput(ctx, tmp)
+		arg0, err = ec.unmarshalONewUser2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐNewUser(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -325,10 +326,10 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 func (ec *executionContext) field_Query_article_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 model.CreateArticleInput
+	var arg0 model.ArticleInput
 	if tmp, ok := rawArgs["input"]; ok {
 		ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("input"))
-		arg0, err = ec.unmarshalNCreateArticleInput2githubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐCreateArticleInput(ctx, tmp)
+		arg0, err = ec.unmarshalNArticleInput2githubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐArticleInput(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -612,7 +613,7 @@ func (ec *executionContext) _Mutation_createArticle(ctx context.Context, field g
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateArticle(rctx, fc.Args["input"].(*model.CreateArticleInput))
+		return ec.resolvers.Mutation().CreateArticle(rctx, fc.Args["input"].(*model.NewArticle))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -676,7 +677,7 @@ func (ec *executionContext) _Mutation_createUser(ctx context.Context, field grap
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateUser(rctx, fc.Args["input"].(*model.CreateUserInput))
+		return ec.resolvers.Mutation().CreateUser(rctx, fc.Args["input"].(*model.NewUser))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -790,7 +791,7 @@ func (ec *executionContext) _Query_article(ctx context.Context, field graphql.Co
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Query().Article(rctx, fc.Args["input"].(model.CreateArticleInput))
+		return ec.resolvers.Query().Article(rctx, fc.Args["input"].(model.ArticleInput))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -2833,8 +2834,36 @@ func (ec *executionContext) fieldContext___Type_specifiedByURL(ctx context.Conte
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputCreateArticleInput(ctx context.Context, obj interface{}) (model.CreateArticleInput, error) {
-	var it model.CreateArticleInput
+func (ec *executionContext) unmarshalInputArticleInput(ctx context.Context, obj interface{}) (model.ArticleInput, error) {
+	var it model.ArticleInput
+	asMap := map[string]interface{}{}
+	for k, v := range obj.(map[string]interface{}) {
+		asMap[k] = v
+	}
+
+	fieldsInOrder := [...]string{"uuId"}
+	for _, k := range fieldsInOrder {
+		v, ok := asMap[k]
+		if !ok {
+			continue
+		}
+		switch k {
+		case "uuId":
+			var err error
+
+			ctx := graphql.WithPathContext(ctx, graphql.NewPathWithField("uuId"))
+			it.UuID, err = ec.unmarshalNString2string(ctx, v)
+			if err != nil {
+				return it, err
+			}
+		}
+	}
+
+	return it, nil
+}
+
+func (ec *executionContext) unmarshalInputNewArticle(ctx context.Context, obj interface{}) (model.NewArticle, error) {
+	var it model.NewArticle
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -2877,8 +2906,8 @@ func (ec *executionContext) unmarshalInputCreateArticleInput(ctx context.Context
 	return it, nil
 }
 
-func (ec *executionContext) unmarshalInputCreateUserInput(ctx context.Context, obj interface{}) (model.CreateUserInput, error) {
-	var it model.CreateUserInput
+func (ec *executionContext) unmarshalInputNewUser(ctx context.Context, obj interface{}) (model.NewUser, error) {
+	var it model.NewUser
 	asMap := map[string]interface{}{}
 	for k, v := range obj.(map[string]interface{}) {
 		asMap[k] = v
@@ -3507,6 +3536,11 @@ func (ec *executionContext) marshalNArticle2ᚖgithubᚗcomᚋbayathyᚋapiᚑse
 	return ec._Article(ctx, sel, v)
 }
 
+func (ec *executionContext) unmarshalNArticleInput2githubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐArticleInput(ctx context.Context, v interface{}) (model.ArticleInput, error) {
+	res, err := ec.unmarshalInputArticleInput(ctx, v)
+	return res, graphql.ErrorOnPath(ctx, err)
+}
+
 func (ec *executionContext) unmarshalNBoolean2bool(ctx context.Context, v interface{}) (bool, error) {
 	res, err := graphql.UnmarshalBoolean(v)
 	return res, graphql.ErrorOnPath(ctx, err)
@@ -3520,11 +3554,6 @@ func (ec *executionContext) marshalNBoolean2bool(ctx context.Context, sel ast.Se
 		}
 	}
 	return res
-}
-
-func (ec *executionContext) unmarshalNCreateArticleInput2githubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐCreateArticleInput(ctx context.Context, v interface{}) (model.CreateArticleInput, error) {
-	res, err := ec.unmarshalInputCreateArticleInput(ctx, v)
-	return res, graphql.ErrorOnPath(ctx, err)
 }
 
 func (ec *executionContext) unmarshalNID2string(ctx context.Context, v interface{}) (string, error) {
@@ -3858,19 +3887,19 @@ func (ec *executionContext) marshalOBoolean2ᚖbool(ctx context.Context, sel ast
 	return res
 }
 
-func (ec *executionContext) unmarshalOCreateArticleInput2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐCreateArticleInput(ctx context.Context, v interface{}) (*model.CreateArticleInput, error) {
+func (ec *executionContext) unmarshalONewArticle2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐNewArticle(ctx context.Context, v interface{}) (*model.NewArticle, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := ec.unmarshalInputCreateArticleInput(ctx, v)
+	res, err := ec.unmarshalInputNewArticle(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 
-func (ec *executionContext) unmarshalOCreateUserInput2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐCreateUserInput(ctx context.Context, v interface{}) (*model.CreateUserInput, error) {
+func (ec *executionContext) unmarshalONewUser2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐNewUser(ctx context.Context, v interface{}) (*model.NewUser, error) {
 	if v == nil {
 		return nil, nil
 	}
-	res, err := ec.unmarshalInputCreateUserInput(ctx, v)
+	res, err := ec.unmarshalInputNewUser(ctx, v)
 	return &res, graphql.ErrorOnPath(ctx, err)
 }
 

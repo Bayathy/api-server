@@ -2,6 +2,6 @@
 #
 # https://gqlgen.com/getting-started/
 type Mutation {
-  createArticle(input: CreateArticleInput): Article
-  createUser(input: CreateUserInput): User
+  createArticle(input: NewArticle): Article
+  createUser(input: NewUser): User
 }
