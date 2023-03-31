@@ -5,5 +5,5 @@ type Article struct {
 	Title string
 	Url   string
 	Done  bool
-	user  User
+	Uuid  string
 }

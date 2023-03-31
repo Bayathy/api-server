@@ -1,5 +1,5 @@
 type Article {
-    id: ID!
+    id: Int!
     title: String!
     url: String!
     done: Boolean!

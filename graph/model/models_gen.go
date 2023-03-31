@@ -3,7 +3,7 @@
 package model
 
 type Article struct {
-	ID    string `json:"id"`
+	ID    int    `json:"id"`
 	Title string `json:"title"`
 	URL   string `json:"url"`
 	Done  bool   `json:"done"`
@@ -11,7 +11,7 @@ type Article struct {
 }
 
 type ArticleInput struct {
-	UuID string `json:"uuId"`
+	UUID string `json:"uuid"`
 }
 
 type NewArticle struct {
