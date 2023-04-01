@@ -1,4 +1,4 @@
-package graph
+package resolver
 
 // This file will be automatically regenerated based on the schema, any resolver implementations
 // will be copied through when generating and any unknown code will be moved to the end.
@@ -6,20 +6,31 @@ package graph
 
 import (
 	"context"
-	"fmt"
-
+	"github.com/bayathy/api-server/cmd/db"
+	"github.com/bayathy/api-server/cmd/entity"
 	"github.com/bayathy/api-server/graph"
 	"github.com/bayathy/api-server/graph/model"
 )
 
 // Articles is the resolver for the articles field.
 func (r *queryResolver) Articles(ctx context.Context) ([]*model.Article, error) {
-	panic(fmt.Errorf("not implemented: Articles - articles"))
+	var articles []entity.Article
+	var res []*model.Article
+	r.DB.Find(&articles)
+
+	for _, v := range articles {
+		res = append(res, db.ConvertArticle(&v))
+	}
+
+	return res, nil
 }
 
 // Article is the resolver for the article field.
 func (r *queryResolver) Article(ctx context.Context, input model.ArticleInput) (*model.Article, error) {
-	panic(fmt.Errorf("not implemented: Article - article"))
+	var article entity.Article
+	r.DB.Find(&article, input.UUID)
+
+	return db.ConvertArticle(&article), nil
 }
 
 // Query returns graph.QueryResolver implementation.

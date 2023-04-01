@@ -1,4 +1,4 @@
-package graph
+package resolver
 
 // This file will be automatically regenerated based on the schema, any resolver implementations
 // will be copied through when generating and any unknown code will be moved to the end.
@@ -6,20 +6,44 @@ package graph
 
 import (
 	"context"
-	"fmt"
-
+	"github.com/bayathy/api-server/cmd/db"
+	"github.com/bayathy/api-server/cmd/entity"
 	"github.com/bayathy/api-server/graph"
 	"github.com/bayathy/api-server/graph/model"
+	"log"
 )
 
 // CreateArticle is the resolver for the createArticle field.
 func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error) {
-	panic(fmt.Errorf("not implemented: CreateArticle - createArticle"))
+	log.Println(input)
+
+	record := entity.Article{
+		Title: input.Title,
+		Url:   input.URL,
+		Uuid:  input.UUID,
+		Done:  false,
+	}
+	if err := r.DB.Create(&record).Error; err != nil {
+		return nil, err
+	}
+	res := db.ConvertArticle(&record)
+
+	return res, nil
 }
 
 // CreateUser is the resolver for the createUser field.
 func (r *mutationResolver) CreateUser(ctx context.Context, input *model.NewUser) (*model.User, error) {
-	panic(fmt.Errorf("not implemented: CreateUser - createUser"))
+	record := entity.User{
+		Uuid: input.UUID,
+	}
+	if err := r.DB.Create(&record).Error; err != nil {
+		return nil, err
+	}
+
+	res := db.ConvertUser(&record)
+
+	return res, nil
+
 }
 
 // Mutation returns graph.MutationResolver implementation.
