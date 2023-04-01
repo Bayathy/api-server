@@ -1,4 +1,4 @@
 type Query {
     articles: [Article!]!
-    article(input: ArticleInput!): Article!
+    article(input: ArticleInput!): [Article!]
 }
