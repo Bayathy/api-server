@@ -50,7 +50,7 @@ type ComplexityRoot struct {
 		ID    func(childComplexity int) int
 		Title func(childComplexity int) int
 		URL   func(childComplexity int) int
-		UUID  func(childComplexity int) int
+		User  func(childComplexity int) int
 	}
 
 	Mutation struct {
@@ -121,12 +121,12 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 
 		return e.complexity.Article.URL(childComplexity), true
 
-	case "Article.uuid":
-		if e.complexity.Article.UUID == nil {
+	case "Article.user":
+		if e.complexity.Article.User == nil {
 			break
 		}
 
-		return e.complexity.Article.UUID(childComplexity), true
+		return e.complexity.Article.User(childComplexity), true
 
 	case "Mutation.createArticle":
 		if e.complexity.Mutation.CreateArticle == nil {
@@ -552,8 +552,8 @@ func (ec *executionContext) fieldContext_Article_done(ctx context.Context, field
 	return fc, nil
 }
 
-func (ec *executionContext) _Article_uuid(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
-	fc, err := ec.fieldContext_Article_uuid(ctx, field)
+func (ec *executionContext) _Article_user(ctx context.Context, field graphql.CollectedField, obj *model.Article) (ret graphql.Marshaler) {
+	fc, err := ec.fieldContext_Article_user(ctx, field)
 	if err != nil {
 		return graphql.Null
 	}
@@ -566,7 +566,7 @@ func (ec *executionContext) _Article_uuid(ctx context.Context, field graphql.Col
 	}()
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return obj.UUID, nil
+		return obj.User, nil
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -578,19 +578,25 @@ func (ec *executionContext) _Article_uuid(ctx context.Context, field graphql.Col
 		}
 		return graphql.Null
 	}
-	res := resTmp.(string)
+	res := resTmp.(*model.User)
 	fc.Result = res
-	return ec.marshalNString2string(ctx, field.Selections, res)
+	return ec.marshalNUser2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐUser(ctx, field.Selections, res)
 }
 
-func (ec *executionContext) fieldContext_Article_uuid(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
+func (ec *executionContext) fieldContext_Article_user(ctx context.Context, field graphql.CollectedField) (fc *graphql.FieldContext, err error) {
 	fc = &graphql.FieldContext{
 		Object:     "Article",
 		Field:      field,
 		IsMethod:   false,
 		IsResolver: false,
 		Child: func(ctx context.Context, field graphql.CollectedField) (*graphql.FieldContext, error) {
-			return nil, errors.New("field of type String does not have child fields")
+			switch field.Name {
+			case "id":
+				return ec.fieldContext_User_id(ctx, field)
+			case "uuid":
+				return ec.fieldContext_User_uuid(ctx, field)
+			}
+			return nil, fmt.Errorf("no field named %q was found under type User", field.Name)
 		},
 	}
 	return fc, nil
@@ -640,8 +646,8 @@ func (ec *executionContext) fieldContext_Mutation_createArticle(ctx context.Cont
 				return ec.fieldContext_Article_url(ctx, field)
 			case "done":
 				return ec.fieldContext_Article_done(ctx, field)
-			case "uuid":
-				return ec.fieldContext_Article_uuid(ctx, field)
+			case "user":
+				return ec.fieldContext_Article_user(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Article", field.Name)
 		},
@@ -765,8 +771,8 @@ func (ec *executionContext) fieldContext_Query_articles(ctx context.Context, fie
 				return ec.fieldContext_Article_url(ctx, field)
 			case "done":
 				return ec.fieldContext_Article_done(ctx, field)
-			case "uuid":
-				return ec.fieldContext_Article_uuid(ctx, field)
+			case "user":
+				return ec.fieldContext_Article_user(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Article", field.Name)
 		},
@@ -818,8 +824,8 @@ func (ec *executionContext) fieldContext_Query_article(ctx context.Context, fiel
 				return ec.fieldContext_Article_url(ctx, field)
 			case "done":
 				return ec.fieldContext_Article_done(ctx, field)
-			case "uuid":
-				return ec.fieldContext_Article_uuid(ctx, field)
+			case "user":
+				return ec.fieldContext_Article_user(ctx, field)
 			}
 			return nil, fmt.Errorf("no field named %q was found under type Article", field.Name)
 		},
@@ -2974,9 +2980,9 @@ func (ec *executionContext) _Article(ctx context.Context, sel ast.SelectionSet, 
 			if out.Values[i] == graphql.Null {
 				invalids++
 			}
-		case "uuid":
+		case "user":
 
-			out.Values[i] = ec._Article_uuid(ctx, field, obj)
+			out.Values[i] = ec._Article_user(ctx, field, obj)
 
 			if out.Values[i] == graphql.Null {
 				invalids++
@@ -3574,6 +3580,16 @@ func (ec *executionContext) marshalNString2string(ctx context.Context, sel ast.S
 		}
 	}
 	return res
+}
+
+func (ec *executionContext) marshalNUser2ᚖgithubᚗcomᚋbayathyᚋapiᚑserverᚋgraphᚋmodelᚐUser(ctx context.Context, sel ast.SelectionSet, v *model.User) graphql.Marshaler {
+	if v == nil {
+		if !graphql.HasFieldError(ctx, graphql.GetFieldContext(ctx)) {
+			ec.Errorf(ctx, "the requested element is null which the schema does not allow")
+		}
+		return graphql.Null
+	}
+	return ec._User(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalN__Directive2githubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐDirective(ctx context.Context, sel ast.SelectionSet, v introspection.Directive) graphql.Marshaler {

@@ -17,10 +17,12 @@ import (
 func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error) {
 	log.Println(input)
 
+	user := entity.User{Uuid: input.UUID}
+
 	record := entity.Article{
 		Title: input.Title,
 		Url:   input.URL,
-		Uuid:  input.UUID,
+		User:  user,
 		Done:  false,
 	}
 	if err := r.DB.Create(&record).Error; err != nil {

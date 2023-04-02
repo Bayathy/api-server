@@ -8,3 +8,6 @@ terraform/gcp_key.json
 
 # .tfvars files
 *.tfvars
+
+# environment file
+.env

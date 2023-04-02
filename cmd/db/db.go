@@ -1,22 +1,26 @@
 package db
 
 import (
+	"fmt"
 	"github.com/bayathy/api-server/cmd/entity"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"log"
+	"os"
 )
 
 func ConnectDatabase() (*gorm.DB, error) {
-	db, err := gorm.Open(postgres.New(postgres.Config{
-		DSN:                  "host=db user=root password=root dbname=postgres port=5432 sslmode=disable TimeZone=Asia/Shanghai",
-		PreferSimpleProtocol: true, // disables implicit prepared statement usage
-	}), &gorm.Config{})
+	password := os.Getenv("DB_PASSWORD")
+	dsn := fmt.Sprintf("postgresql://bayathy:%s@dune-gorilla-4292.6xw.cockroachlabs.cloud:26257/defaultdb?sslmode=verify-full", password)
+	log.Println(password)
+	log.Println(dsn)
 
+	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
-		return nil, err
+		log.Fatal("failed to connect database", err)
 	}
 
-	err = db.AutoMigrate(&entity.Article{})
+	err = db.AutoMigrate(&entity.Article{}, &entity.User{})
 	if err != nil {
 		return nil, err
 	}

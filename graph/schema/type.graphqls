@@ -3,7 +3,7 @@ type Article {
     title: String!
     url: String!
     done: Boolean!
-    uuid: String!
+    user: User!
 }
 
 type User {

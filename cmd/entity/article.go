@@ -1,9 +1,11 @@
 package entity
 
+import "gorm.io/gorm"
+
 type Article struct {
-	ID    uint
+	gorm.Model
 	Title string
 	Url   string
 	Done  bool
-	Uuid  string
+	User  User `gorm:"embedded"`
 }

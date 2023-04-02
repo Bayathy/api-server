@@ -7,7 +7,7 @@ type Article struct {
 	Title string `json:"title"`
 	URL   string `json:"url"`
 	Done  bool   `json:"done"`
-	UUID  string `json:"uuid"`
+	User  *User  `json:"user"`
 }
 
 type ArticleInput struct {
