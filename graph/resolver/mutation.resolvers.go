@@ -10,19 +10,17 @@ import (
 	"github.com/bayathy/api-server/cmd/entity"
 	"github.com/bayathy/api-server/graph"
 	"github.com/bayathy/api-server/graph/model"
-	"log"
 )
 
 // CreateArticle is the resolver for the createArticle field.
 func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error) {
-	log.Println(input)
 
 	user := entity.User{Uuid: input.UUID}
 
 	record := entity.Article{
 		Title: input.Title,
-		Url:   input.URL,
 		User:  user,
+		Url:   input.URL,
 		Done:  false,
 	}
 	if err := r.DB.Create(&record).Error; err != nil {
