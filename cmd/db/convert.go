@@ -13,9 +13,10 @@ func ConvertUser(e *entity.User) *model.User {
 
 func ConvertArticle(e *entity.Article) *model.Article {
 	return &model.Article{
-		Title: e.Title,
-		URL:   e.Url,
-		User:  ConvertUser(&e.User),
-		Done:  e.Done,
+		Title:     e.Title,
+		URL:       e.Url,
+		User:      ConvertUser(&e.User),
+		CreatedAt: e.CreatedAt,
+		Done:      e.Done,
 	}
 }

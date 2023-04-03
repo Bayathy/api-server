@@ -1,8 +1,11 @@
+scalar DateTime
+
 type Article {
     id: Int!
     title: String!
     url: String!
     done: Boolean!
+    createdAt: DateTime!
     user: User!
 }
 

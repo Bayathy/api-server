@@ -2,12 +2,17 @@
 
 package model
 
+import (
+	"time"
+)
+
 type Article struct {
-	ID    int    `json:"id"`
-	Title string `json:"title"`
-	URL   string `json:"url"`
-	Done  bool   `json:"done"`
-	User  *User  `json:"user"`
+	ID        int       `json:"id"`
+	Title     string    `json:"title"`
+	URL       string    `json:"url"`
+	Done      bool      `json:"done"`
+	CreatedAt time.Time `json:"createdAt"`
+	User      *User     `json:"user"`
 }
 
 type ArticleInput struct {
