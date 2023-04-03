@@ -2,6 +2,10 @@ input ArticleInput {
     uuid : String!
 }
 
+input UserInput {
+    uuid: String!
+}
+
 input NewArticle {
     title : String!
     url: String!

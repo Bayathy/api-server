@@ -9,4 +9,5 @@ type Article {
 type User {
     id: Int!
     uuid: String!
+    article: [Article]
 }

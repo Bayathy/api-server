@@ -37,6 +37,15 @@ func (r *queryResolver) Article(ctx context.Context, input model.ArticleInput) (
 	return res, nil
 }
 
+// User is the resolver for the user field.
+func (r *queryResolver) User(ctx context.Context, input model.UserInput) (*model.User, error) {
+	var user entity.User
+
+	r.DB.Where("uuid = ?", input.UUID).Find(&user)
+
+	return db.ConvertUser(&user), nil
+}
+
 // Query returns graph.QueryResolver implementation.
 func (r *Resolver) Query() graph.QueryResolver { return &queryResolver{r} }
 

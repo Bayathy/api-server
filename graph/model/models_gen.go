@@ -25,6 +25,11 @@ type NewUser struct {
 }
 
 type User struct {
-	ID   int    `json:"id"`
+	ID      int        `json:"id"`
+	UUID    string     `json:"uuid"`
+	Article []*Article `json:"article,omitempty"`
+}
+
+type UserInput struct {
 	UUID string `json:"uuid"`
 }

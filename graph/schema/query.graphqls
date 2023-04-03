@@ -1,4 +1,5 @@
 type Query {
     articles: [Article!]!
     article(input: ArticleInput!): [Article!]
+    user(input: UserInput!): User
 }
