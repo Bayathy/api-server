@@ -13,6 +13,7 @@ func ConvertUser(e *entity.User) *model.User {
 
 func ConvertArticle(e *entity.Article) *model.Article {
 	return &model.Article{
+		ID:        e.ID,
 		Title:     e.Title,
 		URL:       e.Url,
 		User:      ConvertUser(&e.User),

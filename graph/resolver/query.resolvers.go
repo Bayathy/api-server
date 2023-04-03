@@ -30,7 +30,7 @@ func (r *queryResolver) Articles(ctx context.Context) ([]*model.Article, error) 
 func (r *queryResolver) Article(ctx context.Context, input model.ArticleInput) ([]*model.Article, error) {
 	var articles []entity.Article
 	var res []*model.Article
-	r.DB.Where("uuid = ?", input.UUID).Find(&articles)
+	r.DB.Where("uuid = ?", input.ID).Find(&articles)
 	for _, v := range articles {
 		res = append(res, db.ConvertArticle(&v))
 	}

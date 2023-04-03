@@ -1,5 +1,5 @@
 input ArticleInput {
-    uuid : String!
+    id: Int!
 }
 
 input UserInput {

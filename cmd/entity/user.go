@@ -1,8 +1,11 @@
 package entity
 
-import "gorm.io/gorm"
+import (
+	"time"
+)
 
 type User struct {
-	gorm.Model
-	Uuid string
+	ID        int `gorm:"primaryKey"`
+	CreatedAt time.Time
+	Uuid      string
 }

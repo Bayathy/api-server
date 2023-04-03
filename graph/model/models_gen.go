@@ -16,7 +16,7 @@ type Article struct {
 }
 
 type ArticleInput struct {
-	UUID string `json:"uuid"`
+	ID int `json:"id"`
 }
 
 type NewArticle struct {
