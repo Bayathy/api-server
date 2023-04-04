@@ -9,24 +9,12 @@ services:
     volumes:
       - ./:/app
       - packages:/go
-    depends_on:
-      - db
     ports:
-      - 8080:8080
+      - "8080:8080"
     tty: true
+    env_file:
+      - .env
     working_dir: /app
-
-  db:
-    image: postgres:14.4
-    container_name: db
-    environment:
-      TZ: Asia/Tokyo
-      POSTGRES_USER: root
-      POSTGRES_PASSWORD: root
-      POSTGRES_INITDB_ARGS: "--encoding=UTF-8"
-    restart: always
-    hostname: db
-    user: root
 
 volumes:
   packages:

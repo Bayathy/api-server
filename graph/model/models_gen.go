@@ -2,19 +2,39 @@
 
 package model
 
-type NewTodo struct {
-	Text   string `json:"text"`
-	UserID string `json:"userId"`
+import (
+	"time"
+)
+
+type Article struct {
+	ID        int       `json:"id"`
+	Title     string    `json:"title"`
+	URL       string    `json:"url"`
+	Done      bool      `json:"done"`
+	CreatedAt time.Time `json:"createdAt"`
+	User      *User     `json:"user"`
 }
 
-type Todo struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	Done bool   `json:"done"`
-	User *User  `json:"user"`
+type ArticleInput struct {
+	ID int `json:"id"`
+}
+
+type NewArticle struct {
+	Title string `json:"title"`
+	URL   string `json:"url"`
+	UUID  string `json:"uuid"`
+}
+
+type NewUser struct {
+	UUID string `json:"uuid"`
 }
 
 type User struct {
-	ID   string `json:"id"`
-	Name string `json:"name"`
+	ID      int        `json:"id"`
+	UUID    string     `json:"uuid"`
+	Article []*Article `json:"article,omitempty"`
+}
+
+type UserInput struct {
+	UUID string `json:"uuid"`
 }

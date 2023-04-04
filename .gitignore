@@ -1,0 +1,13 @@
+terraform/gcp_key.json
+#  Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+
+# .tfvars files
+*.tfvars
+
+# environment file
+.env

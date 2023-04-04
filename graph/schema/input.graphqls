@@ -1,0 +1,17 @@
+input ArticleInput {
+    id: Int!
+}
+
+input UserInput {
+    uuid: String!
+}
+
+input NewArticle {
+    title : String!
+    url: String!
+    uuid: String!
+}
+
+input NewUser {
+    uuid: String!
+}
