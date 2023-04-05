@@ -1,5 +1,5 @@
 resource "google_cloudbuild_trigger" "include-build-logs-trigger" {
-  location = "us-central1"
+  location = var.region
   name     = "container-builder"
   filename = "./terraform/cloudbuild.yaml"
 

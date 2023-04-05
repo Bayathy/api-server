@@ -1,13 +1,13 @@
 resource "google_cloud_run_v2_service" "default" {
   location = var.region
-  name     = "api-server"
+  name     = "server"
 
   template {
     scaling {
       max_instance_count = 1
     }
     containers {
-      image = "us-west1-docker.pkg.dev/api-server/my-repo/server-image"
+      image = "us-west1-docker.pkg.dev/reading-app-382415/my-repository/server-image"
       resources {
         limits = { "memory" : "0.5Gi", "cpu" : "1" }
       }
