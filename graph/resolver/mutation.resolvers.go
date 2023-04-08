@@ -16,9 +16,10 @@ import (
 // CreateArticle is the resolver for the createArticle field.
 func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error) {
 	record := entity.Article{
-		Title: input.Title,
-		Url:   input.URL,
-		Done:  false,
+		Title:  input.Title,
+		Url:    input.URL,
+		Done:   false,
+		UserId: input.UserID,
 	}
 	if err := r.DB.Create(&record).Error; err != nil {
 		return nil, err
@@ -45,8 +46,8 @@ func (r *mutationResolver) UpdateArticle(ctx context.Context, input *model.Updat
 }
 
 // DeleteArticle is the resolver for the deleteArticle field.
-func (r *mutationResolver) DeleteArticle(ctx context.Context, input *model.ArticleInput) (*model.Article, error) {
-	record := entity.Article{UserId: input.UUID}
+func (r *mutationResolver) DeleteArticle(ctx context.Context, input *model.ArticleIDInput) (*model.Article, error) {
+	record := entity.Article{Id: input.ID}
 	if err := r.DB.Delete(&record).Error; err != nil {
 		return nil, err
 	}

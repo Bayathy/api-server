@@ -4,7 +4,7 @@
 type Mutation {
   createArticle(input: NewArticle): Article
   updateArticle(input: UpdateArticle): Article
-  deleteArticle(input: ArticleInput): Article
+  deleteArticle(input: ArticleIDInput): Article
 
   createUser(input: NewUser): User
 }

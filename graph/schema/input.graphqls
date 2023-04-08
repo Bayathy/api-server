@@ -1,5 +1,9 @@
-input ArticleInput {
-    uuid : String!
+input ArticleIDInput {
+    id : ID!
+}
+
+input ArticleUuidInput {
+    uuid: String!
 }
 
 input UserInput {
