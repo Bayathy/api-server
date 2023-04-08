@@ -8,15 +8,15 @@ import (
 func ConvertUser(e *entity.User) *model.User {
 	return &model.User{
 		UUID: e.Uuid,
+		ID:   e.ID,
 	}
 }
 
 func ConvertArticle(e *entity.Article) *model.Article {
 	return &model.Article{
-		ID:        e.ID,
+		ID:        e.Id,
 		Title:     e.Title,
 		URL:       e.Url,
-		User:      ConvertUser(&e.User),
 		CreatedAt: e.CreatedAt,
 		Done:      e.Done,
 	}

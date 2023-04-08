@@ -5,7 +5,8 @@ import (
 )
 
 type User struct {
-	ID        int `gorm:"primaryKey"`
+	ID        int32 `gorm:"primaryKey"`
 	CreatedAt time.Time
-	Uuid      string
+	Uuid      string    `gorm:"uniqueIndex"`
+	Articles  []Article `gorm:"foreignKey:UserId;references:Uuid;constraint:OnUpdate:CASCADE,OnDelete:SET NULL;"`
 }

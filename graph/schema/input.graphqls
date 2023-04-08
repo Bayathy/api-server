@@ -1,5 +1,5 @@
 input ArticleInput {
-    id: Int!
+    uuid : String!
 }
 
 input UserInput {
@@ -9,7 +9,7 @@ input UserInput {
 input NewArticle {
     title : String!
     url: String!
-    uuid: String!
+    userId: String!
 }
 
 input NewUser {
@@ -17,6 +17,6 @@ input NewUser {
 }
 
 input UpdateArticle  {
-    id: Int!
+    id: ID!
     done: Boolean!
 }
