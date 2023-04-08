@@ -15,3 +15,8 @@ input NewArticle {
 input NewUser {
     uuid: String!
 }
+
+input UpdateArticle  {
+    id: Int!
+    done: Boolean!
+}
