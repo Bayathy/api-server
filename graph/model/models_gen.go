@@ -7,32 +7,41 @@ import (
 )
 
 type Article struct {
-	ID        int       `json:"id"`
+	ID        int64     `json:"id"`
 	Title     string    `json:"title"`
 	URL       string    `json:"url"`
 	Done      bool      `json:"done"`
 	CreatedAt time.Time `json:"createdAt"`
-	User      *User     `json:"user"`
+	UserID    string    `json:"userId"`
 }
 
-type ArticleInput struct {
-	ID int `json:"id"`
+type ArticleIDInput struct {
+	ID int64 `json:"id"`
+}
+
+type ArticleUUIDInput struct {
+	UUID string `json:"uuid"`
 }
 
 type NewArticle struct {
-	Title string `json:"title"`
-	URL   string `json:"url"`
-	UUID  string `json:"uuid"`
+	Title  string `json:"title"`
+	URL    string `json:"url"`
+	UserID string `json:"userId"`
 }
 
 type NewUser struct {
 	UUID string `json:"uuid"`
 }
 
+type UpdateArticle struct {
+	ID   int64 `json:"id"`
+	Done bool  `json:"done"`
+}
+
 type User struct {
-	ID      int        `json:"id"`
+	ID      int64      `json:"id"`
 	UUID    string     `json:"uuid"`
-	Article []*Article `json:"article,omitempty"`
+	Article []*Article `json:"article"`
 }
 
 type UserInput struct {

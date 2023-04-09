@@ -18,7 +18,7 @@ func ConnectDatabase() (*gorm.DB, error) {
 		log.Fatal("failed to connect database", err)
 	}
 
-	err = db.AutoMigrate(&entity.Article{}, &entity.User{})
+	err = db.AutoMigrate(&entity.User{}, &entity.Article{})
 	if err != nil {
 		return nil, err
 	}

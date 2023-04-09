@@ -1,5 +1,9 @@
-input ArticleInput {
-    id: Int!
+input ArticleIDInput {
+    id : ID!
+}
+
+input ArticleUuidInput {
+    uuid: String!
 }
 
 input UserInput {
@@ -9,9 +13,14 @@ input UserInput {
 input NewArticle {
     title : String!
     url: String!
-    uuid: String!
+    userId: String!
 }
 
 input NewUser {
     uuid: String!
+}
+
+input UpdateArticle  {
+    id: ID!
+    done: Boolean!
 }

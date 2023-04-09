@@ -15,15 +15,40 @@ import (
 
 // CreateArticle is the resolver for the createArticle field.
 func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error) {
-	user := entity.User{Uuid: input.UUID}
-
 	record := entity.Article{
-		Title: input.Title,
-		User:  user,
-		Url:   input.URL,
-		Done:  false,
+		Title:  input.Title,
+		Url:    input.URL,
+		Done:   false,
+		UserId: input.UserID,
 	}
 	if err := r.DB.Create(&record).Error; err != nil {
+		return nil, err
+	}
+	res := db.ConvertArticle(&record)
+
+	return res, nil
+}
+
+// UpdateArticle is the resolver for the updateArticle field.
+func (r *mutationResolver) UpdateArticle(ctx context.Context, input *model.UpdateArticle) (*model.Article, error) {
+	record := entity.Article{
+		Id:   input.ID,
+		Done: input.Done,
+	}
+
+	if err := r.DB.Model(&record).Where("id + ?", record.Id).Update("id", record.Done).Error; err != nil {
+		return nil, err
+	}
+
+	res := db.ConvertArticle(&record)
+
+	return res, nil
+}
+
+// DeleteArticle is the resolver for the deleteArticle field.
+func (r *mutationResolver) DeleteArticle(ctx context.Context, input *model.ArticleIDInput) (*model.Article, error) {
+	record := entity.Article{Id: input.ID}
+	if err := r.DB.Delete(&record).Error; err != nil {
 		return nil, err
 	}
 	res := db.ConvertArticle(&record)

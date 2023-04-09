@@ -5,7 +5,7 @@ services:
     image: golang:1.20.2-alpine3.17
     build: 
       context: .
-      dockerfile: ./Dockerfile
+      dockerfile: DockerFiles/dev.Dockerfile
     volumes:
       - ./:/app
       - packages:/go

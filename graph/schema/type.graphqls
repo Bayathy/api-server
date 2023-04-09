@@ -1,16 +1,16 @@
 scalar DateTime
 
 type Article {
-    id: Int!
+    id: ID!
     title: String!
     url: String!
     done: Boolean!
     createdAt: DateTime!
-    user: User!
+    userId : String!
 }
 
 type User {
-    id: Int!
+    id: ID!
     uuid: String!
-    article: [Article]
+    article: [Article]!
 }

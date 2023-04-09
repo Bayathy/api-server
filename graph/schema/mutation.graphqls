@@ -3,5 +3,8 @@
 # https://gqlgen.com/getting-started/
 type Mutation {
   createArticle(input: NewArticle): Article
+  updateArticle(input: UpdateArticle): Article
+  deleteArticle(input: ArticleIDInput): Article
+
   createUser(input: NewUser): User
 }

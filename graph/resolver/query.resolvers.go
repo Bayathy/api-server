@@ -27,10 +27,10 @@ func (r *queryResolver) Articles(ctx context.Context) ([]*model.Article, error) 
 }
 
 // Article is the resolver for the article field.
-func (r *queryResolver) Article(ctx context.Context, input model.ArticleInput) ([]*model.Article, error) {
+func (r *queryResolver) Article(ctx context.Context, input model.ArticleUUIDInput) ([]*model.Article, error) {
 	var articles []entity.Article
 	var res []*model.Article
-	r.DB.Where("uuid = ?", input.ID).Find(&articles)
+	r.DB.Where("UserId = ?", input.UUID).Find(&articles)
 	for _, v := range articles {
 		res = append(res, db.ConvertArticle(&v))
 	}
@@ -44,7 +44,9 @@ func (r *queryResolver) User(ctx context.Context, input model.UserInput) (*model
 
 	r.DB.Where("uuid = ?", input.UUID).Find(&user)
 
-	return db.ConvertUser(&user), nil
+	res := db.ConvertUser(&user)
+
+	return res, nil
 }
 
 // Query returns graph.QueryResolver implementation.
