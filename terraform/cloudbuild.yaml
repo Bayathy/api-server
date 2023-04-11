@@ -1,7 +1,7 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build','-f', './Dockerfiles/prod.Dockerfile','-t', 'us-west1-docker.pkg.dev/reading-app-382415/my-repository/server-image', '.']
+    args: ['build','-f', './DockerFiles/prod.Dockerfile','-t', 'us-west1-docker.pkg.dev/reading-app-382415/my-repository/server-image', '.']
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'us-west1-docker.pkg.dev/reading-app-382415/my-repository/server-image']
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
