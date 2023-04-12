@@ -1,6 +1,6 @@
 resource "google_cloud_run_v2_service" "default" {
   location = var.region
-  name     = "server"
+  name     = "api-server"
 
   template {
     scaling {
