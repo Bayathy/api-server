@@ -24,13 +24,13 @@ func main() {
 	if port == "" {
 		port = defaultPort
 	}
-
+	mux := http.NewServeMux()
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &resolver.Resolver{DB: database}}))
 
-	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
-	handler := cors.Default().Handler(srv) // ★CORS レスポンス対応
-	http.Handle("/query", handler)
+	handler := cors.Default().Handler(mux)
+	mux.Handle("/", playground.Handler("GraphQL playground", "/query"))
+	mux.Handle("/query", srv)
 
 	log.Printf("connect to http://localhost:%s/ for GraphQL playground", port)
-	log.Fatal(http.ListenAndServe(":"+port, nil))
+	log.Fatal(http.ListenAndServe(":"+port, handler))
 }
