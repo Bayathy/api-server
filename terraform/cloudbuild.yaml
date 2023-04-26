@@ -8,6 +8,6 @@ steps:
     entrypoint: gcloud
     args: ['run', 'deploy', 'api-server', '--image', 'us-west1-docker.pkg.dev/reading-app-382415/my-repository/server-image', '--region', 'us-west1']
 images:
-  - us-west1-docker.pkg.dev/api-server/my-repository/server-image
+  - us-west1-docker.pkg.dev/reading-app-382415/my-repository/server-image
 options:
   logging: CLOUD_LOGGING_ONLY
