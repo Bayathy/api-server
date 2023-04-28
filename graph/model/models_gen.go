@@ -8,7 +8,6 @@ import (
 
 type Article struct {
 	ID        int64     `json:"id"`
-	Title     string    `json:"title"`
 	URL       string    `json:"url"`
 	Done      bool      `json:"done"`
 	CreatedAt time.Time `json:"createdAt"`
@@ -24,7 +23,6 @@ type ArticleUUIDInput struct {
 }
 
 type NewArticle struct {
-	Title  string `json:"title"`
 	URL    string `json:"url"`
 	UserID string `json:"userId"`
 }

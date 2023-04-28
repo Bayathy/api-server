@@ -2,7 +2,6 @@ scalar DateTime
 
 type Article {
     id: ID!
-    title: String!
     url: String!
     done: Boolean!
     createdAt: DateTime!

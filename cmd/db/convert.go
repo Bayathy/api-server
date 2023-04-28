@@ -15,7 +15,6 @@ func ConvertUser(e *entity.User) *model.User {
 func ConvertArticle(e *entity.Article) *model.Article {
 	return &model.Article{
 		ID:        e.Id,
-		Title:     e.Title,
 		URL:       e.Url,
 		UserID:    e.UserId,
 		CreatedAt: e.CreatedAt,
