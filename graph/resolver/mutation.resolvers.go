@@ -16,7 +16,6 @@ import (
 // CreateArticle is the resolver for the createArticle field.
 func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error) {
 	record := entity.Article{
-		Title:  input.Title,
 		Url:    input.URL,
 		Done:   false,
 		UserId: input.UserID,
