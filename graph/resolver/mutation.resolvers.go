@@ -6,6 +6,7 @@ package resolver
 
 import (
 	"context"
+	"github.com/bayathy/api-server/cmd/parse"
 
 	"github.com/bayathy/api-server/cmd/db"
 	"github.com/bayathy/api-server/cmd/entity"
@@ -15,14 +16,21 @@ import (
 
 // CreateArticle is the resolver for the createArticle field.
 func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error) {
+	title, err := parse.GetTitle(input.URL)
+	if err != nil {
+		return nil, err
+	}
+
 	record := entity.Article{
 		Url:    input.URL,
+		Title:  title,
 		Done:   false,
 		UserId: input.UserID,
 	}
 	if err := r.DB.Create(&record).Error; err != nil {
 		return nil, err
 	}
+
 	res := db.ConvertArticle(&record)
 
 	return res, nil
