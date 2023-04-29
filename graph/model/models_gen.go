@@ -7,15 +7,16 @@ import (
 )
 
 type Article struct {
-	ID        int64     `json:"id"`
+	ID        uint      `json:"id"`
 	URL       string    `json:"url"`
+	Title     string    `json:"title"`
 	Done      bool      `json:"done"`
 	CreatedAt time.Time `json:"createdAt"`
 	UserID    string    `json:"userId"`
 }
 
 type ArticleIDInput struct {
-	ID int64 `json:"id"`
+	ID uint `json:"id"`
 }
 
 type ArticleUUIDInput struct {
@@ -32,12 +33,12 @@ type NewUser struct {
 }
 
 type UpdateArticle struct {
-	ID   int64 `json:"id"`
-	Done bool  `json:"done"`
+	ID   uint `json:"id"`
+	Done bool `json:"done"`
 }
 
 type User struct {
-	ID      int64      `json:"id"`
+	ID      uint       `json:"id"`
 	UUID    string     `json:"uuid"`
 	Article []*Article `json:"article"`
 }

@@ -6,23 +6,30 @@ package resolver
 
 import (
 	"context"
-
 	"github.com/bayathy/api-server/cmd/db"
 	"github.com/bayathy/api-server/cmd/entity"
+	"github.com/bayathy/api-server/cmd/parse"
 	"github.com/bayathy/api-server/graph"
 	"github.com/bayathy/api-server/graph/model"
 )
 
 // CreateArticle is the resolver for the createArticle field.
 func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewArticle) (*model.Article, error) {
+	title, err := parse.GetTitle(input.URL)
+	if err != nil {
+		return nil, err
+	}
+
 	record := entity.Article{
 		Url:    input.URL,
+		Title:  title,
 		Done:   false,
 		UserId: input.UserID,
 	}
 	if err := r.DB.Create(&record).Error; err != nil {
 		return nil, err
 	}
+
 	res := db.ConvertArticle(&record)
 
 	return res, nil
@@ -31,11 +38,11 @@ func (r *mutationResolver) CreateArticle(ctx context.Context, input *model.NewAr
 // UpdateArticle is the resolver for the updateArticle field.
 func (r *mutationResolver) UpdateArticle(ctx context.Context, input *model.UpdateArticle) (*model.Article, error) {
 	record := entity.Article{
-		Id:   input.ID,
+		ID:   input.ID,
 		Done: input.Done,
 	}
 
-	if err := r.DB.Model(&record).Where("id + ?", record.Id).Update("id", record.Done).Error; err != nil {
+	if err := r.DB.Model(&record).Where("id + ?", record.ID).Update("id", record.Done).Error; err != nil {
 		return nil, err
 	}
 
@@ -46,10 +53,12 @@ func (r *mutationResolver) UpdateArticle(ctx context.Context, input *model.Updat
 
 // DeleteArticle is the resolver for the deleteArticle field.
 func (r *mutationResolver) DeleteArticle(ctx context.Context, input *model.ArticleIDInput) (*model.Article, error) {
-	record := entity.Article{Id: input.ID}
+	record := entity.Article{}
+	r.DB.First(&record)
 	if err := r.DB.Delete(&record).Error; err != nil {
 		return nil, err
 	}
+
 	res := db.ConvertArticle(&record)
 
 	return res, nil
