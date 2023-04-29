@@ -5,7 +5,7 @@ import (
 )
 
 type Article struct {
-	Id        int64 `gorm:"primaryKey"`
+	ID        uint `gorm:"primaryKey" gorm:"AUTO_INCREMENT"`
 	CreatedAt time.Time
 	Title     string
 	Url       string
