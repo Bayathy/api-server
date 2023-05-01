@@ -42,8 +42,7 @@ func (r *mutationResolver) UpdateArticle(ctx context.Context, input *model.Updat
 		ID:   input.ID,
 		Done: input.Done,
 	}
-
-	if err := r.DB.Model(&record).Where("id + ?", record.ID).Update("id", record.Done).Error; err != nil {
+	if err := r.DB.Model(&record).Where("id = ?", record.ID).Update("done", true).Error; err != nil {
 		return nil, err
 	}
 
