@@ -6,6 +6,7 @@ package resolver
 
 import (
 	"context"
+
 	"github.com/bayathy/api-server/cmd/db"
 	"github.com/bayathy/api-server/cmd/entity"
 	"github.com/bayathy/api-server/cmd/parse"
@@ -53,7 +54,9 @@ func (r *mutationResolver) UpdateArticle(ctx context.Context, input *model.Updat
 
 // DeleteArticle is the resolver for the deleteArticle field.
 func (r *mutationResolver) DeleteArticle(ctx context.Context, input *model.ArticleIDInput) (*model.Article, error) {
-	record := entity.Article{}
+	record := entity.Article{
+		ID: input.ID,
+	}
 	r.DB.First(&record)
 	if err := r.DB.Delete(&record).Error; err != nil {
 		return nil, err
